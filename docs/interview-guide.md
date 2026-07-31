@@ -38,25 +38,23 @@
 
 ## 2. 技术栈全景
 
-| 层级 | 技术 | 版本/说明 | 选型理由 |
-|------|------|-----------|----------|
-| **后端框架** | FastAPI + Uvicorn | 0.115+ | 原生异步、自动生成 OpenAPI、适合 SSE 流式 |
-| **数据库** | MySQL 8.0 + SQLAlchemy 2.0 async | aiomysql 驱动 | 业务数据持久化、异步 ORM |
-| **缓存/消息** | Redis 7 | async redis-py | Token 黑名单、RAG 缓存、Pub/Sub 进度推送 |
-| **向量存储** | Chroma | 0.6+ | 轻量、每知识库独立 Collection、 cosine 相似度 |
-| **Embedding** | Ollama + nomic-embed-text / bge-m3 | 768 / 1024 维 | 本地部署、隐私可控 |
-| **LLM 推理** | Ollama (qwen2.5:7b) / DeepSeek API | 本地 + 云端 fallback | 本地省钱、云端增强可用性 |
-| **Agent 框架** | LangGraph | 0.2.x | 可视化状态图、MySQL Checkpointer、ReAct 循环 |
-| **Reranker** | bge-reranker-base / ms-marco | Cross-encoder | 精排 Top-K，提升检索准确率 |
-| **前端** | Vue 3 + TypeScript + Pinia + Element Plus | 3.5 | 企业级组件、响应式状态管理 |
-| **构建工具** | Vite | 8.x | 快速 HMR、生产打包优化 |
-| **容器化** | Docker + docker-compose | — | 一键部署、环境一致 |
+| 层级           | 技术                                      | 版本/说明            | 选型理由                                      |
+| -------------- | ----------------------------------------- | -------------------- | --------------------------------------------- |
+| **后端框架**   | FastAPI + Uvicorn                         | 0.115+               | 原生异步、自动生成 OpenAPI、适合 SSE 流式     |
+| **数据库**     | MySQL 8.0 + SQLAlchemy 2.0 async          | aiomysql 驱动        | 业务数据持久化、异步 ORM                      |
+| **缓存/消息**  | Redis 7                                   | async redis-py       | Token 黑名单、RAG 缓存、Pub/Sub 进度推送      |
+| **向量存储**   | Chroma                                    | 0.6+                 | 轻量、每知识库独立 Collection、 cosine 相似度 |
+| **Embedding**  | Ollama + nomic-embed-text / bge-m3        | 768 / 1024 维        | 本地部署、隐私可控                            |
+| **LLM 推理**   | Ollama (qwen2.5:7b) / DeepSeek API        | 本地 + 云端 fallback | 本地省钱、云端增强可用性                      |
+| **Agent 框架** | LangGraph                                 | 0.2.x                | 可视化状态图、MySQL Checkpointer、ReAct 循环  |
+| **Reranker**   | bge-reranker-base / ms-marco              | Cross-encoder        | 精排 Top-K，提升检索准确率                    |
+| **前端**       | Vue 3 + TypeScript + Pinia + Element Plus | 3.5                  | 企业级组件、响应式状态管理                    |
+| **构建工具**   | Vite                                      | 8.x                  | 快速 HMR、生产打包优化                        |
+| **容器化**     | Docker + docker-compose                   | —                    | 一键部署、环境一致                            |
 
 ---
 
 ## 3. 系统部署架构
-
-![部署架构](assets/images/architecture-overview.png)
 
 ```mermaid
 graph TB
@@ -145,12 +143,12 @@ graph TB
 
 **层间调用规则（面试常考）：**
 
-| 调用方向 | 规则 | 禁止 |
-|----------|------|------|
-| API → Service | 路由层调用 Service | API 直接调用 Repository/Model |
-| Service → Repository | Service 通过 Repository 访问数据库 | Service 直接操作 Session |
-| Service → Service | 同级 Service 可互相调用 | 循环依赖 |
-| Repository → Model | Repository 操作 ORM Model | Repository 调用其他 Repository |
+| 调用方向             | 规则                               | 禁止                           |
+| -------------------- | ---------------------------------- | ------------------------------ |
+| API → Service        | 路由层调用 Service                 | API 直接调用 Repository/Model  |
+| Service → Repository | Service 通过 Repository 访问数据库 | Service 直接操作 Session       |
+| Service → Service    | 同级 Service 可互相调用            | 循环依赖                       |
+| Repository → Model   | Repository 操作 ORM Model          | Repository 调用其他 Repository |
 
 ---
 
@@ -170,15 +168,15 @@ erDiagram
 
 **核心表说明：**
 
-| 表名 | 职责 | 关键字段 |
-|------|------|----------|
-| `sys_user` | 用户、密码哈希、API Key 前缀/哈希、系统角色 | `password_hash`, `api_key_hash`, `system_role` |
-| `sys_kb` | 知识库元数据、owner、自定义 system_prompt | `owner_id`, `is_public`, `system_prompt` |
-| `sys_document` | 文档上传记录、解析状态 | `kb_id`, `status`, `file_type`, `file_size` |
-| `sys_chunk` | 文档分块、原始内容、向量（存在 Chroma，DB 存元数据） | `doc_id`, `chunk_index`, `content` |
-| `sys_kb_member` | 知识库成员权限 | `kb_id`, `user_id`, `role(owner/editor/viewer)` |
-| `sys_conversation` | 对话会话 | `kb_id`, `user_id`, `title`, `message_count` |
-| `sys_message` | 消息内容、角色、来源元数据 | `conversation_id`, `role`, `metadata_json` |
+| 表名               | 职责                                                 | 关键字段                                        |
+| ------------------ | ---------------------------------------------------- | ----------------------------------------------- |
+| `sys_user`         | 用户、密码哈希、API Key 前缀/哈希、系统角色          | `password_hash`, `api_key_hash`, `system_role`  |
+| `sys_kb`           | 知识库元数据、owner、自定义 system_prompt            | `owner_id`, `is_public`, `system_prompt`        |
+| `sys_document`     | 文档上传记录、解析状态                               | `kb_id`, `status`, `file_type`, `file_size`     |
+| `sys_chunk`        | 文档分块、原始内容、向量（存在 Chroma，DB 存元数据） | `doc_id`, `chunk_index`, `content`              |
+| `sys_kb_member`    | 知识库成员权限                                       | `kb_id`, `user_id`, `role(owner/editor/viewer)` |
+| `sys_conversation` | 对话会话                                             | `kb_id`, `user_id`, `title`, `message_count`    |
+| `sys_message`      | 消息内容、角色、来源元数据                           | `conversation_id`, `role`, `metadata_json`      |
 
 ---
 
@@ -262,8 +260,6 @@ pending -> parsing -> chunking -> indexing -> done
 
 ### 6.3 RAG 检索管线（BM25 + 向量 + Rerank）
 
-![RAG 管线](assets/images/rag-pipeline.png)
-
 **完整流程：**
 
 1. **Query Rewrite（可选）**：多轮对话时进行指代消解，把“它是什么”改写为“IntelliKB 是什么”。
@@ -337,8 +333,6 @@ async def search(self, kb_id, query_embedding, top_k=5, score_threshold=None):
 ---
 
 ### 6.4 Agent 对话架构（LangGraph ReAct）
-
-![Agent ReAct](assets/images/agent-react-loop.png)
 
 **当前简化架构（默认 `REACT_ENABLED=false`）：**
 
@@ -541,7 +535,11 @@ async def _persist_qa_messages_background(self, conversation_id, question, answe
 **模型提供商指示器（前端可见当前模型）：**
 
 ```vue
-<el-tag v-if="llmProvider" size="small" :type="llmProvider === 'ollama' ? 'success' : ''">
+<el-tag
+  v-if="llmProvider"
+  size="small"
+  :type="llmProvider === 'ollama' ? 'success' : ''"
+>
   {{ llmProvider === 'ollama' ? '本地模型' : '云端模型' }}
   <span v-if="llmProviderModel" class="model-name">· {{ llmProviderModel }}</span>
 </el-tag>
@@ -556,16 +554,16 @@ async def _persist_qa_messages_background(self, conversation_id, question, answe
 
 ## 7. 关键技术难点与解决方案
 
-| 难点 | 解决方案 | 对应文件 |
-|------|----------|----------|
-| **SSE 401** | 认证优先级改为 query param > Cookie，useSSE 支持 token 刷新重试 | [auth.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/depends/auth.py), [useSSE.ts](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/frontend/src/composables/useSSE.ts) |
-| **RAG 消息丢失** | StreamingResponse 取消时用独立后台任务持久化 | [rag_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/rag_service.py#L121-L145) |
-| **切换 DeepSeek 后 Embedding 500** | `llm_client.py` 强制 embed 目的使用 `OLLAMA_BASE_URL` | [llm_client.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/core/llm_client.py#L14-L75) |
-| **云端 fallback 不生效** | 使用独立 `OLLAMA_BASE_URL`/`OLLAMA_API_KEY`，不复用 LLM_BASE_URL | [agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py#L147-L177) |
-| **Agent 回答偏离知识库** | System Prompt 强制只基于检索结果，禁止用模型自身知识 | [agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py#L61-L78) |
-| **多轮上下文超限** | 滑动窗口 20 轮 / 8192 tokens，指代词检测保留更多上下文 | [agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py#L257-L331) |
-| **Reranker 下载超时** | 三层降级：bge-reranker-base → ms-marco → 禁用 | [rerank_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/rerank_service.py) |
-| **弱密码/弱密钥上线** | `pydantic-settings` 实例化时 fail-fast 校验 | [config.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/config.py#L277-L308) |
+| 难点                               | 解决方案                                                         | 对应文件                                                                                                                                                                                                                                                                                                      |
+| ---------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SSE 401**                        | 认证优先级改为 query param > Cookie，useSSE 支持 token 刷新重试  | [auth.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/depends/auth.py), [useSSE.ts](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/frontend/src/composables/useSSE.ts) |
+| **RAG 消息丢失**                   | StreamingResponse 取消时用独立后台任务持久化                     | [rag_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/rag_service.py#L121-L145)                                                                                                                                        |
+| **切换 DeepSeek 后 Embedding 500** | `llm_client.py` 强制 embed 目的使用 `OLLAMA_BASE_URL`            | [llm_client.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/core/llm_client.py#L14-L75)                                                                                                                                                |
+| **云端 fallback 不生效**           | 使用独立 `OLLAMA_BASE_URL`/`OLLAMA_API_KEY`，不复用 LLM_BASE_URL | [agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py#L147-L177)                                                                                                                                    |
+| **Agent 回答偏离知识库**           | System Prompt 强制只基于检索结果，禁止用模型自身知识             | [agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py#L61-L78)                                                                                                                                      |
+| **多轮上下文超限**                 | 滑动窗口 20 轮 / 8192 tokens，指代词检测保留更多上下文           | [agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py#L257-L331)                                                                                                                                    |
+| **Reranker 下载超时**              | 三层降级：bge-reranker-base → ms-marco → 禁用                    | [rerank_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/rerank_service.py)                                                                                                                                            |
+| **弱密码/弱密钥上线**              | `pydantic-settings` 实例化时 fail-fast 校验                      | [config.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/config.py#L277-L308)                                                                                                                                                           |
 
 ---
 
@@ -659,25 +657,25 @@ async def _persist_qa_messages_background(self, conversation_id, question, answe
 
 **Q17：如果面试官问“你如何保证数据一致性”，怎么回答？**
 
-> 数据库事务由 `get_db()` 统一控制：正常 yield 后自动 commit，异常时 rollback。知识库创建等跨表操作使用 MySQL  advisory lock（`GET_LOCK`）防止并发冲突。流式场景用独立后台任务持久化，避免请求取消导致数据丢失。
+> 数据库事务由 `get_db()` 统一控制：正常 yield 后自动 commit，异常时 rollback。知识库创建等跨表操作使用 MySQL advisory lock（`GET_LOCK`）防止并发冲突。流式场景用独立后台任务持久化，避免请求取消导致数据丢失。
 
 ---
 
 ## 9. 附录：推荐阅读的源码入口
 
-| 主题 | 文件 | 关键行 |
-|------|------|--------|
-| 应用入口 + 生命周期 | [app/main.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/main.py) | 25-152 |
-| 配置与安全校验 | [app/config.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/config.py) | 36-308 |
-| 认证依赖 | [app/depends/auth.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/depends/auth.py) | 34-197 |
-| 数据库连接池 | [app/core/database.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/core/database.py) | 12-40 |
-| LLM 客户端工厂 | [app/core/llm_client.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/core/llm_client.py) | 14-75 |
-| 混合检索 | [app/services/hybrid_search_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/hybrid_search_service.py) | 24-186 |
-| RAG 问答 | [app/services/rag_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/rag_service.py) | 23-279 |
-| Agent 对话 | [app/services/agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py) | 89-1088 |
-| 向量存储 | [app/services/vector_store.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/vector_store.py) | 18-143 |
-| SSE 前端封装 | [frontend/src/composables/useSSE.ts](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/frontend/src/composables/useSSE.ts) | 11-191 |
-| QA 页面 | [frontend/src/views/qa/QAPage.vue](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/frontend/src/views/qa/QAPage.vue) | 1-220 |
+| 主题                | 文件                                                                                                                                                                                          | 关键行  |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 应用入口 + 生命周期 | [app/main.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/main.py)                                                     | 25-152  |
+| 配置与安全校验      | [app/config.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/config.py)                                                 | 36-308  |
+| 认证依赖            | [app/depends/auth.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/depends/auth.py)                                     | 34-197  |
+| 数据库连接池        | [app/core/database.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/core/database.py)                                   | 12-40   |
+| LLM 客户端工厂      | [app/core/llm_client.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/core/llm_client.py)                               | 14-75   |
+| 混合检索            | [app/services/hybrid_search_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/hybrid_search_service.py) | 24-186  |
+| RAG 问答            | [app/services/rag_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/rag_service.py)                     | 23-279  |
+| Agent 对话          | [app/services/agent_service.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/agent_service.py)                 | 89-1088 |
+| 向量存储            | [app/services/vector_store.py](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/app/services/vector_store.py)                   | 18-143  |
+| SSE 前端封装        | [frontend/src/composables/useSSE.ts](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/frontend/src/composables/useSSE.ts)       | 11-191  |
+| QA 页面             | [frontend/src/views/qa/QAPage.vue](file:///d:/Python实习冲刺/projects/IntelliKB%20%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86%E5%BA%93%E5%B9%B3%E5%8F%B0/frontend/src/views/qa/QAPage.vue)           | 1-220   |
 
 ---
 
