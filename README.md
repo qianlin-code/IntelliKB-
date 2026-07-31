@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-blue)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)](https://fastapi.tiangolo.com)
 [![Vue](https://img.shields.io/badge/Vue-3.5-brightgreen)](https://vuejs.org)
-[![CI](https://github.com/qianlin-code/IntelliKB-/actions/workflows/ci.yml/badge.svg)](https://github.com/qianlin-code/IntelliKB-/actions/workflows/ci.yml)
+[![CI](https://github.com/qianlin-code/IntelliKB/actions/workflows/ci.yml/badge.svg)](https://github.com/qianlin-code/IntelliKB/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
@@ -119,8 +119,8 @@
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/qianlin-code/IntelliKB-.git
-cd IntelliKB-
+git clone https://github.com/qianlin-code/IntelliKB.git
+cd IntelliKB
 
 # 2. 配置环境变量
 cp .env.example .env
