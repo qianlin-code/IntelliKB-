@@ -294,7 +294,6 @@ IntelliKB/
 
 | 文档 | 说明 |
 |------|------|
-| [🎯 面试/学习指南](docs/interview-guide.md) | 项目深度解析 + 架构图 + 核心代码 + 高频面试题 |
 | [架构概览](docs/architecture-overview.md) | 分层架构、ER 图、管线流程、认证体系 |
 | [部署指南](docs/deployment.md) | Docker Compose 部署、环境变量、离线部署、常见问题 |
 | [技术债务](docs/tech-debt.md) | 已知问题与改进建议 |
