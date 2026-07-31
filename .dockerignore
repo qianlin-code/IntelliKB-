@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.git/
+.gitignore
+.env
+*.md
+!README.md
+.vscode/
+.idea/
+*.log
+uploads/
+chroma_data/
+frontend/
+tests/

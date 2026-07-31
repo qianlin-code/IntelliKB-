@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Data
+chroma_data/
+chromdb_data/
+uploads/
+
+# Phase 7: Reranker models (downloaded from huggingface)
+reranker_models/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug / temporary files
+debug-*.md
+.dbg/
+login.json
+dump.rdb
+tmp_*.py
+tmp_test_*.py
+test_doc.txt
+test_upload_e2e.txt
+测试.txt
+*.log
+
+# Local issue tracker
+.scratch/
+
+# Coverage reports
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Misc local directories
+temp_check/
