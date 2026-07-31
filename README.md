@@ -12,7 +12,7 @@
 
 ## 状态
 
-🚀 **v1.0.1 已发布** — 首个生产就绪版本（含上线前关键热修）
+🚀 **[v1.0.1 已发布](https://github.com/qianlin-code/IntelliKB/releases/tag/v1.0.1)** — 首个生产就绪版本（含上线前关键热修）
 
 ---
 
