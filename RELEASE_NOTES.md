@@ -18,7 +18,7 @@
 4. **Embedding 强制本地 Ollama**：即使 `LLM_PROVIDER=deepseek`，Embedding 仍走 `OLLAMA_BASE_URL`，避免 500。
 5. **Agent 流式语法修复**：Python 3.11 嵌套 f-string JSON 序列化错误已修复。
 
-详见 [CHANGELOG.md](CHANGELOG.md)。
+详见 [CHANGELOG.md](https://github.com/qianlin-code/IntelliKB/blob/main/CHANGELOG.md)。
 
 ---
 
@@ -46,7 +46,7 @@ IntelliKB 是一个基于 RAG（检索增强生成）和 Agent 智能体的企�
 ## 快速开始
 
 ```bash
-git clone https://github.com/yourname/intellikb.git && cd intellikb
+git clone https://github.com/qianlin-code/IntelliKB.git && cd IntelliKB
 cp .env.example .env
 # 编辑 .env 设置 SECRET_KEY 和密码
 docker compose up -d
@@ -61,24 +61,24 @@ bash scripts/init.sh
 
 ### 硬件
 
-| 组件 | 最低 | 推荐 |
-|------|------|------|
-| CPU | 4 核 | 8 核 |
-| RAM | 8 GB | 16 GB |
-| VRAM | 6 GB (Ollama qwen2.5:7b) | 16 GB |
-| 磁盘 | 20 GB | 50 GB+ (含模型缓存) |
+| 组件 | 最低                     | 推荐                |
+| ---- | ------------------------ | ------------------- |
+| CPU  | 4 核                     | 8 核                |
+| RAM  | 8 GB                     | 16 GB               |
+| VRAM | 6 GB (Ollama qwen2.5:7b) | 16 GB               |
+| 磁盘 | 20 GB                    | 50 GB+ (含模型缓存) |
 
 ### 软件
 
-| 组件 | 版本 |
-|------|------|
-| Docker | 24.0+ |
-| Docker Compose | v2 |
-| Python | 3.11+ (本地开发) |
-| Node.js | 18+ (前端开发) |
-| MySQL | 8.0 |
-| Redis | 7.x |
-| Ollama | 最新版 |
+| 组件           | 版本             |
+| -------------- | ---------------- |
+| Docker         | 24.0+            |
+| Docker Compose | v2               |
+| Python         | 3.11+ (本地开发) |
+| Node.js        | 18+ (前端开发)   |
+| MySQL          | 8.0              |
+| Redis          | 7.x              |
+| Ollama         | 最新版           |
 
 ---
 
@@ -122,18 +122,18 @@ IntelliKB 由开发团队构建，从 Phase 0 到 Phase 11 共 12 个迭代阶�
 
 ## 许可证
 
-MIT License — 详见 [LICENSE](LICENSE)。
+MIT License — 详见 [LICENSE](https://github.com/qianlin-code/IntelliKB/blob/main/LICENSE)。
 
 ---
 
 ## 相关链接
 
-| 资源 | 地址 |
-|------|------|
-| README | [README.md](README.md) |
-| 架构概览 | [docs/architecture-overview.md](docs/architecture-overview.md) |
-| 部署指南 | [docs/deployment.md](docs/deployment.md) |
-| 技术债务 | [docs/tech-debt.md](docs/tech-debt.md) |
-| 路线图 | [docs/roadmap.md](docs/roadmap.md) |
-| API 文档 | http://localhost:8000/docs |
-| 变更日志 | [CHANGELOG.md](CHANGELOG.md) |
+| 资源     | 地址                                                                              |
+| -------- | --------------------------------------------------------------------------------- |
+| README   | https://github.com/qianlin-code/IntelliKB/blob/main/README.md                     |
+| 架构概览 | https://github.com/qianlin-code/IntelliKB/blob/main/docs/architecture-overview.md |
+| 部署指南 | https://github.com/qianlin-code/IntelliKB/blob/main/docs/deployment.md            |
+| 技术债务 | https://github.com/qianlin-code/IntelliKB/blob/main/docs/tech-debt.md             |
+| 路线图   | https://github.com/qianlin-code/IntelliKB/blob/main/docs/roadmap.md               |
+| API 文档 | http://localhost:8000/docs                                                        |
+| 变更日志 | https://github.com/qianlin-code/IntelliKB/blob/main/CHANGELOG.md                  |
