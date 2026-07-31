@@ -68,7 +68,7 @@ IntelliKB 是一个基于 RAG（检索增强生成）和 Agent 智能体的企�
 
 ### 部署架构
 
-![部署架构](assets/architecture-deployment.md)
+- [查看部署架构图 (Mermaid)](assets/architecture-deployment.md)
 
 ```
 Browser → Nginx → FastAPI → MySQL/Redis/Chroma/Ollama
@@ -77,15 +77,15 @@ Browser → Nginx → FastAPI → MySQL/Redis/Chroma/Ollama
 
 ### 后端分层
 
-![后端分层](assets/architecture-layers.md)
+- [查看后端分层架构图 (Mermaid)](assets/architecture-layers.md)
 
 ```
-API 路由层 (9 模块) → 服务层 (18 Service) → Repository 层 → 模型层 (12 表) → 基础设施层
+API 路由层 (9 模块) → 服务层 (22 Service) → Repository 层 → 模型层 (12 表) → 基础设施层
 ```
 
 ### Agent/RAG 流程
 
-![Agent/RAG流程](assets/architecture-agent-rag.md)
+- [查看 Agent/RAG 流程图 (Mermaid)](assets/architecture-agent-rag.md)
 
 详见 [docs/architecture-overview.md](architecture-overview.md)。
 
